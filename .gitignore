@@ -7,3 +7,4 @@ metacow
 *.jpg
 *.csv
 *.dSYM/**
+!test.jpg

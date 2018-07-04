@@ -12,7 +12,7 @@ This is a fork of [Macduff](https://github.com/ryanfb/macduff), a tool for findi
   the correct compilation flags. Tweak as needed.
   
     $ make
-    $ ./macduff test.png result.png > result.csv
+    $ ./macduff test.jpg result.png > result.csv
 
 ##DESCRIPTION
 
