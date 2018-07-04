@@ -1,5 +1,10 @@
-# Macduff
-Macduff is a tool for finding the Macbeth ColorChecker chart in an image.
+# Macduff -- a fork
+This is a fork of [Macduff](https://github.com/ryanfb/macduff), a tool for finding the Macbeth ColorChecker chart in an image.  
+
+## Changes from original behavior (as of July 3, 2018)
+1. A parameter `MIN_RELATIVE_SQUARE_SIZE` has been added as a work-around for an issue where the algorithm would choke on images where the ColorChecker was smaller than a certain hard-coded size relative to the image dimensions.
+
+2. the (no longer working in openCV 3.4.1?) `cvSaveImage` call has been updated.
 
 ##SYNOPSIS
 
@@ -7,7 +12,7 @@ Macduff is a tool for finding the Macbeth ColorChecker chart in an image.
   the correct compilation flags. Tweak as needed.
   
     $ make
-    $ ./macduff input.tif result.png > result.csv
+    $ ./macduff test.png result.png > result.csv
 
 ##DESCRIPTION
 

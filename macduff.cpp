@@ -3,9 +3,16 @@
 #include <opencv/highgui.h>
 #include <opencv2/calib3d/calib3d.hpp>
 
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/core/utility.hpp>
+
 #define MACBETH_WIDTH   6
 #define MACBETH_HEIGHT  4
 #define MACBETH_SQUARES MACBETH_WIDTH * MACBETH_HEIGHT
+
+// Each color square must takes up more than this percentage of the image
+#define MIN_RELATIVE_SQUARE_SIZE 0.0001  // for original behavior set to .01/24
 
 #define MAX_CONTOUR_APPROX  7
 
@@ -453,8 +460,7 @@ IplImage * find_macbeth( const char *img )
         CvSeq * contours = NULL;
         cvFindContours(adaptive,storage,&contours);
         
-        int min_size = (macbeth_img->width*macbeth_img->height)/
-            (MACBETH_SQUARES*100);
+        int min_size = (macbeth_img->width * macbeth_img->height) * MIN_RELATIVE_SQUARE_SIZE;
         
         if(contours) {
             int count = 0;
@@ -622,8 +628,7 @@ IplImage * find_macbeth( const char *img )
                         this_value.val[2],this_value.val[1],this_value.val[0]);
                 }
             }
-            printf("%0.f\n%f\n",found_colorchecker.size,found_colorchecker.error);
-            
+            printf("%0.f\n%f\n",found_colorchecker.size,found_colorchecker.error);    
         }
                 
         cvReleaseMemStorage( &storage );
@@ -650,11 +655,12 @@ int main( int argc, char *argv[] )
     const char *img_file = argv[1];
 
     IplImage *out = find_macbeth( img_file );
-    if( argc == 3) {
-        cvSaveImage( argv[2], out );
-    }
+    cv::Mat out_mat = cv::cvarrToMat(out);
     cvReleaseImage( &out );
 
+    if( argc == 3) {
+        cv::imwrite( argv[2], out_mat );
+    }
+    
     return 0;
 }
-
