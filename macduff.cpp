@@ -12,7 +12,7 @@
 #define MACBETH_SQUARES MACBETH_WIDTH * MACBETH_HEIGHT
 
 // Each color square must takes up more than this percentage of the image
-#define MIN_RELATIVE_SQUARE_SIZE 0.0001  // for original behavior set to .01/24
+#define MIN_RELATIVE_SQUARE_SIZE 0.00001  // for original behavior set to .01/24
 
 #define MAX_CONTOUR_APPROX  7
 
